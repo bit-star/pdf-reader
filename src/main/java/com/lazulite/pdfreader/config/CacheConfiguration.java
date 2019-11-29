@@ -42,6 +42,7 @@ public class CacheConfiguration {
             createCache(cm, com.lazulite.pdfreader.domain.User.class.getName());
             createCache(cm, com.lazulite.pdfreader.domain.Authority.class.getName());
             createCache(cm, com.lazulite.pdfreader.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.lazulite.pdfreader.domain.PdfFile.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
