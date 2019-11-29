@@ -8,6 +8,10 @@ entity PdfFile {
 }
 
 
+relationship ManyToOne{
+	PdfFile to User
+}
+
 
 
 // Set service options to all except few
