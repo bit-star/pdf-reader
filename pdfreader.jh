@@ -1,0 +1,17 @@
+
+
+
+entity PdfFile {
+	name String,
+    file Blob,
+  	readerUrl String
+}
+
+
+
+
+// Set service options to all except few
+service all with serviceClass
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
