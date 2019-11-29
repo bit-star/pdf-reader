@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IPdfFile, PdfFile } from 'app/shared/model/pdf-file.model';
 import { PdfFileService } from './pdf-file.service';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'jhi-pdf-file-update',
@@ -16,18 +18,22 @@ import { PdfFileService } from './pdf-file.service';
 export class PdfFileUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  users: IUser[];
+
   editForm = this.fb.group({
     id: [],
     name: [],
     file: [],
     fileContentType: [],
-    readerUrl: []
+    readerUrl: [],
+    user: []
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected pdfFileService: PdfFileService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -37,6 +43,9 @@ export class PdfFileUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ pdfFile }) => {
       this.updateForm(pdfFile);
     });
+    this.userService
+      .query()
+      .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(pdfFile: IPdfFile) {
@@ -45,7 +54,8 @@ export class PdfFileUpdateComponent implements OnInit {
       name: pdfFile.name,
       file: pdfFile.file,
       fileContentType: pdfFile.fileContentType,
-      readerUrl: pdfFile.readerUrl
+      readerUrl: pdfFile.readerUrl,
+      user: pdfFile.user
     });
   }
 
@@ -103,7 +113,8 @@ export class PdfFileUpdateComponent implements OnInit {
       name: this.editForm.get(['name']).value,
       fileContentType: this.editForm.get(['fileContentType']).value,
       file: this.editForm.get(['file']).value,
-      readerUrl: this.editForm.get(['readerUrl']).value
+      readerUrl: this.editForm.get(['readerUrl']).value,
+      user: this.editForm.get(['user']).value
     };
   }
 
@@ -121,5 +132,9 @@ export class PdfFileUpdateComponent implements OnInit {
   }
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  trackUserById(index: number, item: IUser) {
+    return item.id;
   }
 }

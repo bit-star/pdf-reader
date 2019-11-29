@@ -22,6 +22,7 @@
             <th scope="col" ><span jhiTranslate="pdfReaderApp.pdfFile.name">Name</span></th>
             <th scope="col" ><span jhiTranslate="pdfReaderApp.pdfFile.file">File</span></th>
             <th scope="col" ><span jhiTranslate="pdfReaderApp.pdfFile.readerUrl">Reader Url</span></th>
+            <th scope="col" ><span jhiTranslate="pdfReaderApp.pdfFile.user">User</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -34,6 +35,9 @@
                     <span *ngIf="pdfFile.file">{{pdfFile.fileContentType}}, {{byteSize(pdfFile.file)}}</span>
                 </td>
                 <td>{{pdfFile.readerUrl}}</td>
+                <td>
+                    {{pdfFile.user?.id}}
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

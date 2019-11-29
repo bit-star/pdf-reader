@@ -18,7 +18,8 @@
       },
       "name": "Name",
       "file": "File",
-      "readerUrl": "Reader Url"
+      "readerUrl": "Reader Url",
+      "user": "User"
     }
   }
 }
