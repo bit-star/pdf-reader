@@ -1,4 +1,5 @@
 package com.lazulite.pdfreader.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,6 +33,10 @@ public class PdfFile implements Serializable {
 
     @Column(name = "reader_url")
     private String readerUrl;
+
+    @ManyToOne
+    @JsonIgnoreProperties("pdfFiles")
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -92,6 +97,19 @@ public class PdfFile implements Serializable {
 
     public void setReaderUrl(String readerUrl) {
         this.readerUrl = readerUrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public PdfFile user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
